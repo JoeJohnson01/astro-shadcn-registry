@@ -1,0 +1,70 @@
+{
+  "name": "astro-shadcn-registry",
+  "version": "0.1.0",
+  "description": "Astro integration for ShadCN registry generation from content collections",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./package.json": "./package.json"
+  },
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "bin",
+    "scripts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "dev": "esbuild src/index.ts --bundle --outfile=dist/index.mjs --platform=node --format=esm --sourcemap --watch --external:inquirer --external:kleur --external:fast-glob --external:gray-matter",
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.mjs --platform=node --format=esm --sourcemap --alias:@=./src --external:inquirer --external:kleur --external:fast-glob --external:gray-matter",
+    "postbuild": "chmod +x bin/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:integration:legacy": "node tests/integration/test-harness.js",
+    "test:integration": "vitest run tests/integration/test-harness.test.ts",
+    "prepublishOnly": "npm run build",
+    "postinstall": "node scripts/postinstall.js && chmod +x bin/cli.js"
+  },
+  "bin": {
+    "astro-shadcn-registry": "./bin/cli.js"
+  },
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "shadcn",
+    "registry",
+    "content-collections"
+  ],
+  "author": "Joe Johnson <01johnson.joe@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "es-module-lexer": "^1.6.0",
+    "fast-glob": "^3.3.2",
+    "gray-matter": "^4.0.3",
+    "inquirer": "^9.2.16",
+    "kleur": "^4.1.5",
+    "shadcn": "^2.5.0-canary.1",
+    "ts-node": "^10.9.2"
+  },
+  "peerDependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.17.31",
+    "@vitest/coverage-v8": "^3.1.2",
+    "astro": "^5.0.0",
+    "esbuild": "^0.25.3",
+    "typescript": "^5.4.5",
+    "vitest": "^3.1.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JoeJohnson01/astro-shadcn-registry"
+  },
+  "bugs": {
+    "url": "https://github.com/JoeJohnson01/astro-shadcn-registry/issues"
+  },
+  "homepage": "https://github.com/JoeJohnson01/astro-shadcn-registry#readme"
+}
